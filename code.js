@@ -1,17 +1,13 @@
 const inputBox = document.getElementById("input-box")
 const listContainer = document.getElementById("list-container")
-const userInputBox = document.getElementById("user-input-box")
 
 function addTask(){
     if (inputBox.value === ''){
         alert("Por favor, escriba una nota");
     }
-    else if (userInputBox.value === '') {
-        alert("Por favor, escriba un nombre de usuario");
-    }
     else {
         let li = document.createElement("li");
-        li.innerHTML = userInputBox.value + ": " + inputBox.value;
+        li.innerHTML = inputBox.value;
         listContainer.appendChild(li);
         let span = document.createElement("span");
         span.innerHTML = "\u00d7";
@@ -35,28 +31,6 @@ listContainer.addEventListener("click", function(e){
     }
 }, false);
 
-// Add this code after your existing JavaScript code
-
-listContainer.addEventListener("contextmenu", function(e) {
-    if (e.target.tagName === "LI") {
-        const originalText = e.target.textContent.trim();
-        const lastCharIndex = originalText.length - 1;
-        var colonIndex = originalText.indexOf(": ");
-        const taskText = originalText.substring(colonIndex+2, lastCharIndex).trim();
-        const newText = prompt("Edit task:", taskText);
-        
-        if (newText !== null) {
-            inputBox.value = newText.trim()
-            e.target.remove() 
-            saveData();
-            inputBox.focus();
-        }
-    }
-
-}, false);
-
-
-
 function saveData(){
     localStorage.setItem("NotesData", listContainer.innerHTML);
 }
@@ -66,7 +40,6 @@ function showData(){
 }
 
 showData();
-
 
 
 function getLocalStorageSize() {
